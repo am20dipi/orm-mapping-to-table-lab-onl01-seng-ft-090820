@@ -4,7 +4,7 @@ class Student
   
   #DB[:conn]
   
-  def initialize(attribute_hash)
+  def initialize(name, grade, id = nil)
     @name = name
     @grade = grade
     @id = id
@@ -37,7 +37,7 @@ class Student
     @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0] #using a SQL query to grab the value of the ID column of the last inserted row and set that equal to the given student instance's id attribute. 
   end
   
-  def self.create(attribute_hash) 
+  def self.create(name, grade) 
     student = Student.new(name, grade)
     student.save
     student
