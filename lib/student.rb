@@ -28,12 +28,19 @@ class Student
     DB[:conn].execute(sql)
   end
   
-  def save 
-    sql = <<-SQL
+  def save #instantiating a new instance of the Student class
+    sql = <<-SQL #inserting a new row into the db table
       INSERT INTO students (name, grade)
-      VALUES (?, ?)
+      VALUES (?, ?) 
     SQL
     DB[:conn].execute(sql, self.name, self.grade)
-    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0]
+    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0] #using a SQL query to grab the value of the ID column of the last inserted row and set that equal to the given student instance's id attribute. 
   end
+  
+  def self.create(name, grade) #using the keyword arguments to instantiate a new student, then use the save method to persist that student into the db
+    student = Student.new(name, grade)
+    student.save
+    student
+  end
+    
 end
