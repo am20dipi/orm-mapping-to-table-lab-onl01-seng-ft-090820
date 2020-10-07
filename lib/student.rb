@@ -37,10 +37,11 @@ class Student
     @id = DB[:conn].execute("SELECT last_insert_rowid() FROM students")[0][0] #using a SQL query to grab the value of the ID column of the last inserted row and set that equal to the given student instance's id attribute. 
   end
   
-  def self.create(name, grade) #using the keyword arguments to instantiate a new student, then use the save method to persist that student into the db
+  def self.create(name, grade) 
     student = Student.new(name, grade)
     student.save
     student
   end
+  #using the keyword arguments to instantiate a new student, then use the save method to persist that student into the db
     
 end
